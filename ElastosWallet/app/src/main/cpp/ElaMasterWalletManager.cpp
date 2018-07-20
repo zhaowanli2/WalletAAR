@@ -326,6 +326,6 @@ static const JNINativeMethod gMethods[] = {
 
 int register_elastos_spv_IMasterWalletManager(JNIEnv *env)
 {
-    return jniRegisterNativeMethods(env, "com/elastos/spvcore/MasterWalletManager",
+    return jniRegisterNativeMethods(env, "org/elastos/elastoswallet/MasterWalletManager",
         gMethods, NELEM(gMethods));
 }

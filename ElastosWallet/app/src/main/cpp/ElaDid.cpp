@@ -124,6 +124,6 @@ static const JNINativeMethod gMethods[] = {
 
 jint register_elastos_spv_IDid(JNIEnv *env)
 {
-    return jniRegisterNativeMethods(env, "com/elastos/spvcore/IDid",
+    return jniRegisterNativeMethods(env, "org/elastos/elastoswallet/IDid",
         gMethods, NELEM(gMethods));
 }

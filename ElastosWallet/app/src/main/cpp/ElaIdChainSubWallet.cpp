@@ -63,6 +63,6 @@ static const JNINativeMethod gMethods[] = {
 
 jint register_elastos_spv_IIdChainSubWallet(JNIEnv *env)
 {
-    return jniRegisterNativeMethods(env, "com/elastos/spvcore/IIdChainSubWallet",
+    return jniRegisterNativeMethods(env, "org/elastos/elastoswallet/IIdChainSubWallet",
         gMethods, NELEM(gMethods));
 }

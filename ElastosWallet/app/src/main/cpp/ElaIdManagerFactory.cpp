@@ -34,6 +34,6 @@ static const JNINativeMethod gMethods[] = {
 
 jint register_elastos_spv_IdManagerFactory(JNIEnv *env)
 {
-    return jniRegisterNativeMethods(env, "com/elastos/spvcore/IdManagerFactory",
+    return jniRegisterNativeMethods(env, "org/elastos/elastoswallet/IdManagerFactory",
         gMethods, NELEM(gMethods));
 }
