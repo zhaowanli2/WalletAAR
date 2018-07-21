@@ -5,7 +5,7 @@
 #include "ElaUtils.h"
 #include "Elastos.Wallet.h"
 
-#define  CLASS_MASTERWALLET   "com/elastos/spvcore/IMasterWallet"
+#define  CLASS_MASTERWALLET   "org/elastos/elastoswallet/IMasterWallet"
 #define  FIELD_MASTERWALLET   "mMasterProxy"
 
 static jlong JNICALL nativeInitMasterWalletManager(JNIEnv *env, jobject clazz, jstring jrootPath)
@@ -317,8 +317,8 @@ static const JNINativeMethod gMethods[] = {
     {"nativeDestroyWallet", "(JLjava/lang/String;)V", (void*)nativeDestroyWallet},
     {"nativeImportWalletWithKeystore", "(JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)J", (void*)nativeImportWalletWithKeystore},
     {"nativeImportWalletWithMnemonic", "(JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)J", (void*)nativeImportWalletWithMnemonic},
-    {"nativeExportWalletWithKeystore", "(JLcom/elastos/spvcore/IMasterWallet;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;", (void*)nativeExportWalletWithKeystore},
-    {"nativeExportWalletWithMnemonic", "(JLcom/elastos/spvcore/IMasterWallet;Ljava/lang/String;)Ljava/lang/String;", (void*)nativeExportWalletWithMnemonic},
+    {"nativeExportWalletWithKeystore", "(JLorg/elastos/elastoswallet/IMasterWallet;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;", (void*)nativeExportWalletWithKeystore},
+    {"nativeExportWalletWithMnemonic", "(JLorg/elastos/elastoswallet/IMasterWallet;Ljava/lang/String;)Ljava/lang/String;", (void*)nativeExportWalletWithMnemonic},
     {"nativeGetAllMasterWallets", "(J)[J", (void*)nativeGetAllMasterWallets},
     {"nativeGenerateMnemonic", "(JLjava/lang/String;)Ljava/lang/String;", (void*)nativeGenerateMnemonic},
     {"nativeSaveConfigs", "(J)V", (void*)nativeSaveConfigs},

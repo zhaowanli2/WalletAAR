@@ -115,7 +115,7 @@ static const JNINativeMethod gMethods[] = {
     {"nativeGetDID", "(JLjava/lang/String;)J", (void*)nativeGetDID},
     {"nativeGetDIDList", "(J)Ljava/lang/String;", (void*)nativeGetDIDList},
     {"nativeDestoryDID", "(JLjava/lang/String;)V", (void*)nativeDestoryDID},
-    {"nativeRegisterCallback", "(JLjava/lang/String;Lcom/elastos/spvcore/IIdManagerCallback;)Z", (void*)nativeRegisterCallback},
+    {"nativeRegisterCallback", "(JLjava/lang/String;Lorg/elastos/elastoswallet/IIdManagerCallback;)Z", (void*)nativeRegisterCallback},
     {"nativeUnregisterCallback", "(JLjava/lang/String;)Z", (void*)nativeUnregisterCallback},
 };
 
