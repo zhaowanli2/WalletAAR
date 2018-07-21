@@ -7,7 +7,7 @@
 #include "elastos/core/Object.h"
 #include <map>
 
-#define  CLASS_SUBWALLET   "com/elastos/spvcore/ISubWallet"
+#define  CLASS_SUBWALLET   "org/elastos/elastoswallet/ISubWallet"
 #define  FIELD_SUBWALLET   "mSubProxy"
 
 static jstring JNICALL nativeGetChainId(JNIEnv *env, jobject clazz, jlong jSubProxy)
@@ -128,6 +128,7 @@ static jstring JNICALL nativeCreateTransaction(JNIEnv *env, jobject clazz, jlong
     String result;
     try {
         subWallet->CreateTransaction(String(fromAddress), String(toAddress), amount, fee, String(memo), String(remark), &result);
+        return env->NewStringUTF(result.string());
     }
     catch (std::invalid_argument& e) {
         ThrowWalletException(env, e.what());
@@ -146,7 +147,7 @@ static jstring JNICALL nativeCreateTransaction(JNIEnv *env, jobject clazz, jlong
     env->ReleaseStringUTFChars(jtoAddress, toAddress);
     env->ReleaseStringUTFChars(jmemo, memo);
     env->ReleaseStringUTFChars(jremark, remark);
-    return env->NewStringUTF(result.string());
+    return NULL;
 }
 
 static jstring JNICALL nativeCreateMultiSignAddress(JNIEnv *env, jobject clazz, jlong jSubProxy, jstring jmultiPublicKeyJson,
@@ -335,8 +336,8 @@ static const JNINativeMethod gMethods[] = {
     {"nativeCreateAddress", "(J)Ljava/lang/String;", (void*)nativeCreateAddress},
     {"nativeGetAllAddress", "(JII)Ljava/lang/String;", (void*)nativeGetAllAddress},
     {"nativeGetBalanceWithAddress", "(JLjava/lang/String;)J", (void*)nativeGetBalanceWithAddress},
-    {"nativeAddCallback", "(JLcom/elastos/spvcore/ISubWalletCallback;)V", (void*)nativeAddCallback},
-    {"nativeRemoveCallback", "(JLcom/elastos/spvcore/ISubWalletCallback;)V", (void*)nativeRemoveCallback},
+    {"nativeAddCallback", "(JLorg/elastos/elastoswallet/ISubWalletCallback;)V", (void*)nativeAddCallback},
+    {"nativeRemoveCallback", "(JLorg/elastos/elastoswallet/ISubWalletCallback;)V", (void*)nativeRemoveCallback},
     {"nativeCreateTransaction", "(JLjava/lang/String;Ljava/lang/String;JJLjava/lang/String;Ljava/lang/String;)Ljava/lang/String;", (void*)nativeCreateTransaction},
     {"nativeCreateMultiSignTransaction", "(JLjava/lang/String;Ljava/lang/String;JJLjava/lang/String;)Ljava/lang/String;", (void*)nativeCreateMultiSignTransaction},
     {"nativeCreateMultiSignAddress", "(JLjava/lang/String;II)Ljava/lang/String;", (void*)nativeCreateMultiSignAddress},
