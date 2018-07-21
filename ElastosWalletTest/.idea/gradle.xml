@@ -9,6 +9,7 @@
           <set>
             <option value="/media/xlt/e2a47aa2-4cb2-4e29-b8c1-9b89bed90045/home/xuliting/Workspace/wanli/WalletAAR/ElastosWalletTest" />
             <option value="/media/xlt/e2a47aa2-4cb2-4e29-b8c1-9b89bed90045/home/xuliting/Workspace/wanli/WalletAAR/ElastosWalletTest/app" />
+            <option value="/media/xlt/e2a47aa2-4cb2-4e29-b8c1-9b89bed90045/home/xuliting/Workspace/wanli/WalletAAR/ElastosWalletTest/elastoswallet-debug" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
