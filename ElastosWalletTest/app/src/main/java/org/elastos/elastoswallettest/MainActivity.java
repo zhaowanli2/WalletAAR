@@ -2,6 +2,7 @@ package org.elastos.elastoswallettest;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import org.elastos.elastoswallet.ElastosWalletUtils;
 import org.elastos.elastoswallet.IMasterWallet;
@@ -11,6 +12,7 @@ import org.elastos.elastoswallet.MasterWalletManager;
 import org.elastos.elastoswallet.WalletException;
 
 public class MainActivity extends AppCompatActivity {
+    static String TAG = "Elastos-SPV-Test";
     private MasterWalletManager mWalletManager;
 
     @Override
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
             //3. 生成助记词
             String language = "english";
             String mnemonic = mWalletManager.GenerateMnemonic(language);
+            Log.d(TAG, "mnemonic =============["+mnemonic+"]");
 
             //4. 创建主钱包
             String masterWalletId = "masterWalletId";
