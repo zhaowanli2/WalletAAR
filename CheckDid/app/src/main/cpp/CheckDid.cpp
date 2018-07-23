@@ -1,37 +1,41 @@
 
 #include <jni.h>
-#include <string>
-#include "Key.h"
-#include "Utils.h"
+#include "Elastos.DIDInspector.h"
 
-using namespace Elastos::ElaWallet;
-
-static jstring JNICALL nativePublicKeyToIdAddress(JNIEnv *env, jobject clazz, jstring jpublicKey)
+static jlong JNICALL nativeInitDIDInspector(JNIEnv *env, jobject clazz)
 {
-    const char* publicKey = env->GetStringUTFChars(jpublicKey, NULL);
+    IDIDInspector* ididInspector = NULL;
+    CDIDInspector::New(&ididInspector);
 
-    CMBlock pubKey = Utils::decodeHex(publicKey);
-    BRKey key;
-    memcpy(key.pubKey, pubKey, pubKey.GetSize());
-    key.compressed = (pubKey.GetSize() <= 33);
-    std::string id = Key::publicKeyToIdAddress(&key);
-
-    env->ReleaseStringUTFChars(jpublicKey, publicKey);
-    return env->NewStringUTF(id.c_str());
+    return (jlong)ididInspector;
 }
 
-static jboolean JNICALL nativeVerifyByPublicKey(JNIEnv *env, jobject clazz, jstring jpublicKey, jstring jmessage, jstring jsignature)
+static jboolean JNICALL nativeCheckDID(JNIEnv *env, jobject clazz, jlong proxy, jstring jpublicKey, jstring jdid)
+{
+    const char* publicKey = env->GetStringUTFChars(jpublicKey, NULL);
+    const char* did = env->GetStringUTFChars(jdid, NULL);
+    IDIDInspector* ididInspector = (IDIDInspector*)proxy;
+
+    Boolean matched = FALSE;
+    ididInspector->CheckDID(String(publicKey), String(did), &matched);
+    return (jboolean)matched;
+}
+
+static jboolean JNICALL nativeCheckSign(JNIEnv *env, jobject clazz, jlong proxy, jstring jpublicKey, jstring jmessage, jstring jsignature)
 {
     const char* publicKey = env->GetStringUTFChars(jpublicKey, NULL);
     const char* message = env->GetStringUTFChars(jmessage, NULL);
     const char* signature = env->GetStringUTFChars(jsignature, NULL);
 
-    bool status = Key::verifyByPublicKey(publicKey, message, signature);
+    IDIDInspector* ididInspector = (IDIDInspector*)proxy;
+
+    Boolean matched = FALSE;
+    ididInspector->CheckSign(String(publicKey), String(message), String(signature), &matched);
 
     env->ReleaseStringUTFChars(jpublicKey, publicKey);
     env->ReleaseStringUTFChars(jmessage, message);
     env->ReleaseStringUTFChars(jsignature, signature);
-    return (jboolean)status;
+    return (jboolean)matched;
 }
 
 #ifndef NELEM
@@ -41,13 +45,14 @@ static jboolean JNICALL nativeVerifyByPublicKey(JNIEnv *env, jobject clazz, jstr
 int jniRegisterNativeMethods(JNIEnv* env, const char* className, const JNINativeMethod* gMethods, int numMethods);
 
 static const JNINativeMethod gMethods[] = {
-    {"nativePublicKeyToIdAddress", "(Ljava/lang/String;)Ljava/lang/String;", (void*)nativePublicKeyToIdAddress},
-    {"nativeVerifyByPublicKey", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Z", (void*)nativeVerifyByPublicKey},
+    {"nativeInitDIDInspector", "()J", (void*)nativeInitDIDInspector},
+    {"nativeCheckDID", "(JLjava/lang/String;Ljava/lang/String;)Z", (void*)nativeCheckDID},
+    {"nativeCheckSign", "(JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;)Z", (void*)nativeCheckSign},
 };
 
 jint register_elastos_checkdid(JNIEnv *env)
 {
-    return jniRegisterNativeMethods(env, "org/elastos/checkdid/CheckDid",
+    return jniRegisterNativeMethods(env, "org/elastos/checkdid/DIDInspector",
         gMethods, NELEM(gMethods));
 }
 

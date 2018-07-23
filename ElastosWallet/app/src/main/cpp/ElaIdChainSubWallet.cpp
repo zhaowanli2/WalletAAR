@@ -26,6 +26,7 @@ static jstring JNICALL nativeCreateIdTransaction(JNIEnv *env, jobject clazz, jlo
 
     try {
         wallet->CreateIdTransaction(String(fromAddress), String(payloadJson), String(programJson), String(memo), String(remark), &txidJson);
+        return stringTojstring(env, txidJson.string());
     }
     catch (std::invalid_argument& e) {
         ThrowWalletException(env, e.what());
@@ -47,7 +48,7 @@ static jstring JNICALL nativeCreateIdTransaction(JNIEnv *env, jobject clazz, jlo
     env->ReleaseStringUTFChars(jremark, remark);
 
     LOGD("FUNC=[%s]===================LINE=[%d], keys=[%s]", __FUNCTION__, __LINE__, txidJson.string());
-    return stringTojstring(env, txidJson.string());
+    return NULL;
 }
 
 

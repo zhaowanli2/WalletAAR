@@ -24,6 +24,10 @@ public class MainActivity extends AppCompatActivity {
         TestWallet();
     }
 
+    private void TestDID() {
+
+    }
+
     private void TestWallet() {
         try {
             //1. 初始化钱包所需的数据

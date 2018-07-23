@@ -14,16 +14,15 @@ public class ISidechainSubWallet extends ISubWallet {
      * @param mainchainAccounts a list of mainchain accounts in json format.
      * @param mainchainAmounts a list of mainchain amounts in json format, each amount should correspond to \p mainchainAccounts by order.
      * @param mainchainIndexs a list of mainchain indices in json format, each index should correspond to \p mainchainAccounts by order.
-     * @param fee [Obsoleted] specify fee for miners.
      * @param memo input memo attribute for describing.
      * @param remark is used to record message of local wallet.
      * @return If success return the content of transaction in json format.
      */
     public String CreateWithdrawTransaction(String fromAddress, String toAddress, long amount, String mainchainAccounts,
-                String mainchainAmounts, String mainchainIndexs, long fee, String memo, String remark) throws WalletException {
+                String mainchainAmounts, String mainchainIndexs, String memo, String remark) throws WalletException {
 
         return nativeCreateWithdrawTransaction(mSidechainProxy, fromAddress, toAddress, amount, mainchainAccounts, mainchainAmounts,
-                    mainchainIndexs, fee, memo, remark);
+                    mainchainIndexs, memo, remark);
     }
 
     /**
@@ -40,7 +39,7 @@ public class ISidechainSubWallet extends ISubWallet {
     }
 
     private native String nativeCreateWithdrawTransaction(long proxy, String fromAddress, String toAddress, long amount, String mainchainAccounts,
-                String mainchainAmounts, String mainchainIndexs, long fee, String memo, String remark);
+                String mainchainAmounts, String mainchainIndexs, String memo, String remark);
 
     private native String nativeGetGenesisAddress(long proxy);
 }

@@ -20,17 +20,20 @@ set(SOURCES
     src/main/cpp/ElaDidManager.cpp
     src/main/cpp/ElaDid.cpp
     src/main/cpp/ElaUtils.cpp
+    src/main/cpp/CheckDid.cpp
 )
 
 add_library(elastoswallet SHARED ${SOURCES})
 
 target_link_libraries(elastoswallet
     spvsdk
+    idchain
     Elastos.Runtime
     Elastos.Runtime_static
     Elastos.CoreLibrary
     Elastos.Wallet
     Elastos.DID
-    idchain
+    Elastos.DIDInspector
+    crypto
     log
 )
