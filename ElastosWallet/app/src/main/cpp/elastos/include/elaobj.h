@@ -269,11 +269,7 @@ IJavaInterface : public IInterface
     }
 
     virtual CARAPI JavaInit(
-        /* [in] */ _ELASTOS Handle64 jvm,
-        /* [in] */ _ELASTOS Handle64 jobj) = 0;
-
-    virtual CARAPI GetJavaObject(
-        /* [out] */ _ELASTOS Handle64* jobj) = 0;
+        /* [in] */ _ELASTOS Handle64 jvm) = 0;
 };
 
 }   // extern "C"
