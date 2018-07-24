@@ -24,6 +24,10 @@ public class MainActivity extends AppCompatActivity {
         TestWallet();
     }
 
+    private void TestDID() {
+
+    }
+
     private void TestWallet() {
         try {
             //1. 初始化钱包所需的数据
@@ -50,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
             boolean singleAddress = false;
             long feePerKb = 10000; //SELA
             ISubWallet subWallet = masterWallet.CreateSubWallet(chainID, payPassword, singleAddress, feePerKb);
+            Log.d(TAG, "subWallet============================"+subWallet);
 
             //6. CreateTransaction
             String fromAddress = "";
@@ -58,19 +63,34 @@ public class MainActivity extends AppCompatActivity {
             long fee = 0;
             String memo = "";
             String remark = "";
-            String transaction = subWallet.CreateTransaction(fromAddress, toAddress, amount, fee, memo, remark);
-
+            Log.d(TAG, "subWallet============================1");
+            String transaction = subWallet.CreateTransaction(fromAddress, toAddress, amount, memo, remark);
+            Log.d(TAG, "subWallet============================2");
             //7. 计算费用 CalculateTransactionFee
             fee = subWallet.CalculateTransactionFee(transaction, feePerKb);
 
             //8. 发送交易 SendRawTransaction
 
+            Log.d(TAG, "subWallet============================3");
             String transactionId = subWallet.SendRawTransaction(transaction, fee, payPassword);
 
+            Log.d(TAG, "subWallet============================4");
             //交易回调
             subWallet.AddCallback(new ISubWalletCallback() {
                 @Override
                 public void OnTransactionStatusChanged(String txId, String status, String desc, int confirms) {
+                    //TOOD 确认数变动会触发该回调.
+                }
+                @Override
+                public void OnBlockSyncStarted() {
+                    //TOOD 确认数变动会触发该回调.
+                }
+                @Override
+                public void OnBlockHeightIncreased(int currentBlockHeight, double progress) {
+                    //TOOD 确认数变动会触发该回调.
+                }
+                @Override
+                public void OnBlockSyncStopped() {
                     //TOOD 确认数变动会触发该回调.
                 }
             });

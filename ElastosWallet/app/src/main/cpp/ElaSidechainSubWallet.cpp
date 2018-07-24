@@ -8,7 +8,7 @@
 //"(JLjava/lang/String;Ljava/lang/String;JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;JLjava/lang/String;)Ljava/lang/String;"
 static jstring JNICALL nativeCreateWithdrawTransaction(JNIEnv *env, jobject clazz, jlong jSideSubWalletProxy, jstring jfromAddress
         , jstring jtoAddress, jlong amount, jstring jmainchainAccounts, jstring jmainchainAmounts,
-        jstring jmainchainIndexs, jlong fee, jstring jmemo, jstring jremark)
+        jstring jmainchainIndexs, jstring jmemo, jstring jremark)
 {
     const char* fromAddress = env->GetStringUTFChars(jfromAddress, NULL);
     const char* toAddress = env->GetStringUTFChars(jtoAddress, NULL);
@@ -30,7 +30,7 @@ static jstring JNICALL nativeCreateWithdrawTransaction(JNIEnv *env, jobject claz
     try {
         wallet->CreateWithdrawTransaction(String(fromAddress), String(toAddress), amount
                 , String(mainchainAccounts), String(mainchainAmounts)
-                , String(mainchainIndexs), fee, String(memo), String(remark), &result);
+                , String(mainchainIndexs), String(memo), String(remark), &result);
         return env->NewStringUTF(result.string());
     }
     catch (std::invalid_argument& e) {
@@ -84,7 +84,7 @@ static jstring JNICALL nativeGetGenesisAddress(JNIEnv *env, jobject clazz, jlong
 
 static const JNINativeMethod gMethods[] = {
     {"nativeCreateWithdrawTransaction",
-    "(JLjava/lang/String;Ljava/lang/String;JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;JLjava/lang/String;Ljava/lang/String;)Ljava/lang/String;"
+    "(JLjava/lang/String;Ljava/lang/String;JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;"
             , (void*)nativeCreateWithdrawTransaction},
     {"nativeGetGenesisAddress", "(J)Ljava/lang/String;", (void*)nativeGetGenesisAddress},
 };

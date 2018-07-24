@@ -11,6 +11,7 @@ extern int register_elastos_spv_ISubWallet(JNIEnv* env);
 extern int register_elastos_spv_IMainchainSubWallet(JNIEnv* env);
 extern int register_elastos_spv_ISidechainSubWallet(JNIEnv* env);
 extern int register_elastos_spv_IIdChainSubWallet(JNIEnv* env);
+extern int register_elastos_checkdid(JNIEnv* env);
 
 //did
 extern int register_elastos_spv_IDid(JNIEnv* env);
@@ -36,6 +37,9 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void* reserved){
     register_elastos_spv_IDid(env);
     register_elastos_spv_IDidManager(env);
     register_elastos_spv_IdManagerFactory(env);
+
+    //checkdid
+    register_elastos_checkdid(env);
 
     return JNI_VERSION_1_6;
 }

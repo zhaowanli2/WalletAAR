@@ -7,9 +7,9 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
-            <option value="/media/xlt/e2a47aa2-4cb2-4e29-b8c1-9b89bed90045/home/xuliting/Workspace/wanli/WalletAAR/ElastosWalletTest" />
-            <option value="/media/xlt/e2a47aa2-4cb2-4e29-b8c1-9b89bed90045/home/xuliting/Workspace/wanli/WalletAAR/ElastosWalletTest/app" />
-            <option value="/media/xlt/e2a47aa2-4cb2-4e29-b8c1-9b89bed90045/home/xuliting/Workspace/wanli/WalletAAR/ElastosWalletTest/elastoswallet-debug" />
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/elastoswallet-debug" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

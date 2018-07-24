@@ -14,6 +14,7 @@ public class MasterWalletManager {
         System.loadLibrary("Elastos.CoreLibrary");
         System.loadLibrary("Elastos.Wallet");
         System.loadLibrary("Elastos.DID");
+        System.loadLibrary("Elastos.DIDInspector");
         System.loadLibrary("elastoswallet");
     }
 

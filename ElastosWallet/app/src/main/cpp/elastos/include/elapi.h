@@ -129,5 +129,8 @@ ELAPI ECO_PUBLIC _CCarrier_GetInstance(
 ELAPI ECO_PUBLIC _CServiceManager_AcquireInstance(
     /* [out] */ IServiceManager** manager);
 
+ELAPI ECO_PUBLIC _CJavaCarManager_AcquireInstance(
+    /* [out] */ IJavaCarManager** manager);
+
 #endif // __ELAPI_H__
 /** @} */

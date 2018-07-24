@@ -49,6 +49,7 @@ EXTERN_C const _ELASTOS InterfaceID EIID_IFriend;
 EXTERN_C const _ELASTOS InterfaceID EIID_ICarrierListener;
 EXTERN_C const _ELASTOS InterfaceID EIID_ICarrier;
 EXTERN_C const _ELASTOS InterfaceID EIID_IServiceManager;
+EXTERN_C const _ELASTOS InterfaceID EIID_IJavaCarManager;
 
 interface ICallbackRendezvous;
 interface ICallbackSink;
@@ -92,6 +93,7 @@ interface IFriend;
 interface ICarrierListener;
 interface ICarrier;
 interface IServiceManager;
+interface IJavaCarManager;
 
 
 
@@ -2226,11 +2228,6 @@ IParcel : public IInterface
         return (IParcel*)pObj->Probe(EIID_IParcel);
     }
 
-    static CARAPI_(IParcel*) QueryInterface(const Elastos::String& uid)
-    {
-        return NULL;
-    }
-
     virtual CARAPI Marshall(
         /* [out, callee] */ _ELASTOS ArrayOf<_ELASTOS Byte> ** bytes) = 0;
 
@@ -2302,10 +2299,10 @@ IParcel : public IInterface
         /* [in] */ const _ELASTOS String& str) = 0;
 
     virtual CARAPI ReadStruct(
-        /* [out] */ _ELASTOS Handle32 * address) = 0;
+        /* [out] */ _ELASTOS PVoid * address) = 0;
 
     virtual CARAPI WriteStruct(
-        /* [in] */ _ELASTOS Handle32 value,
+        /* [in] */ _ELASTOS PVoid value,
         /* [in] */ _ELASTOS Int32 size) = 0;
 
     virtual CARAPI ReadEMuid(
@@ -2321,10 +2318,10 @@ IParcel : public IInterface
         /* [in] */ const _ELASTOS EGuid & id) = 0;
 
     virtual CARAPI ReadArrayOf(
-        /* [out] */ _ELASTOS Handle32 * array) = 0;
+        /* [out] */ _ELASTOS PVoid * array) = 0;
 
     virtual CARAPI WriteArrayOf(
-        /* [in] */ _ELASTOS Handle32 array) = 0;
+        /* [in] */ _ELASTOS PVoid array) = 0;
 
     virtual CARAPI ReadArrayOfString(
         /* [out, callee] */ _ELASTOS ArrayOf<_ELASTOS String> ** array) = 0;
@@ -2333,7 +2330,7 @@ IParcel : public IInterface
         /* [in] */ _ELASTOS ArrayOf<_ELASTOS String> * array) = 0;
 
     virtual CARAPI ReadInterfacePtr(
-        /* [out] */ _ELASTOS Handle32 * itfpp) = 0;
+        /* [out] */ IInterface ** itfpp) = 0;
 
     virtual CARAPI WriteInterfacePtr(
         /* [in] */ IInterface * value) = 0;
@@ -2390,11 +2387,6 @@ IParcelable : public IInterface
     {
         if (pObj == NULL) return NULL;
         return (IParcelable*)pObj->Probe(EIID_IParcelable);
-    }
-
-    static CARAPI_(IParcelable*) QueryInterface(const Elastos::String& uid)
-    {
-        return NULL;
     }
 
     virtual CARAPI ReadFromParcel(
@@ -2474,7 +2466,7 @@ IFriend : public IInterface
         /* [out] */ _ELASTOS Boolean * online) = 0;
 
 };
-CAR_INTERFACE("5FC58523-0312-3512-6AB0-B89FF1FE0FA6")
+CAR_INTERFACE("571E963C-0312-3512-6AB0-B89FF1FE0FA6")
 ICarrierListener : public IInterface
 {
     virtual CARAPI_(PInterface) Probe(
@@ -2523,8 +2515,12 @@ ICarrierListener : public IInterface
         /* [in] */ const _ELASTOS String& remotePort,
         /* [in] */ _ELASTOS ECode code) = 0;
 
+    virtual CARAPI OnMessageReceived(
+        /* [in] */ const _ELASTOS String& uid,
+        /* [in] */ const _ELASTOS ArrayOf<_ELASTOS Byte> & message) = 0;
+
 };
-CAR_INTERFACE("75A9D839-0312-3512-6AB0-B8FF43B5EB0D")
+CAR_INTERFACE("BF98E42D-0312-3512-6AB0-B8FF43B5EB0D")
 ICarrier : public IInterface
 {
     virtual CARAPI_(PInterface) Probe(
@@ -2590,7 +2586,7 @@ ICarrier : public IInterface
     virtual CARAPI Export(
         /* [out] */ _ELASTOS String * dataFile) = 0;
 
-    virtual CARAPI GetUerid(
+    virtual CARAPI GetUserid(
         /* [out] */ _ELASTOS String * myUid) = 0;
 
     virtual CARAPI OpenPortForwarding(
@@ -2602,6 +2598,10 @@ ICarrier : public IInterface
         /* [in] */ const _ELASTOS String& uid,
         /* [in] */ const _ELASTOS String& localPort,
         /* [in] */ const _ELASTOS String& remotePort) = 0;
+
+    virtual CARAPI SendMessage(
+        /* [in] */ const _ELASTOS String& uid,
+        /* [in] */ const _ELASTOS ArrayOf<_ELASTOS Byte> & message) = 0;
 
 };
 CAR_INTERFACE("21022438-E652-3F95-8C64-269719000000")
@@ -2635,6 +2635,47 @@ IServiceManager : public IInterface
         /* [in] */ const _ELASTOS String& uid,
         /* [in] */ const _ELASTOS String& name,
         /* [out] */ IInterface ** service) = 0;
+
+};
+CAR_INTERFACE("11334431-04D2-3912-4830-205163E50F23")
+IJavaCarManager : public IInterface
+{
+    virtual CARAPI_(PInterface) Probe(
+        /* [in] */ _ELASTOS REIID riid) = 0;
+
+    static CARAPI_(IJavaCarManager*) Probe(PInterface pObj)
+    {
+        if (pObj == NULL) return NULL;
+        return (IJavaCarManager*)pObj->Probe(EIID_IJavaCarManager);
+    }
+
+    static CARAPI_(IJavaCarManager*) Probe(IObject* pObj)
+    {
+        if (pObj == NULL) return NULL;
+        return (IJavaCarManager*)pObj->Probe(EIID_IJavaCarManager);
+    }
+
+    static CARAPI_(IJavaCarManager*) QueryInterface(const Elastos::String& uid)
+    {
+        return NULL;
+    }
+
+    virtual CARAPI AddCarObject(
+        /* [in] */ const _ELASTOS String& javaClassId,
+        /* [in] */ _ELASTOS Handle64 javaObj,
+        /* [in] */ IInterface * carObj) = 0;
+
+    virtual CARAPI RemoveCarObject(
+        /* [in] */ const _ELASTOS String& javaClassId,
+        /* [in] */ IInterface * carObj) = 0;
+
+    virtual CARAPI GetJavaObject(
+        /* [in] */ IInterface * carObj,
+        /* [out] */ _ELASTOS Handle64 * javaObj) = 0;
+
+    virtual CARAPI GetCarObject(
+        /* [in] */ const _ELASTOS String& javaClassId,
+        /* [out] */ IInterface ** carObj) = 0;
 
 };
 

@@ -14,15 +14,14 @@ public class IMainchainSubWallet extends ISubWallet {
      * @param sidechainAccounts a list of sidechain accounts in json format.
      * @param sidechainAmounts a list of sidechain amounts in json format, each amount should correspond to \p sidechainAccounts by order.
      * @param sidechainIndices a list of sidechain indices in json format, each index should correspond to \p sidechainAccounts by order.
-     * @param fee [Obsoleted] specify fee for miners.
      * @param memo input memo attribute for describing.
      * @param remark is used to record message of local wallet.
      * @return　If success return the content of transaction in json format.
      */
     public String CreateDepositTransaction(String fromAddress, String toAddress, long amount, String sidechainAccounts,
-            String sidechainAmounts, String sidechainIndexs, long fee, String memo, String remark) throws WalletException {
+            String sidechainAmounts, String sidechainIndexs, String memo, String remark) throws WalletException {
         return nativeCreateDepositTransaction(mMainchainProxy, fromAddress, toAddress, amount, sidechainAccounts,
-                    sidechainAmounts, sidechainIndexs, fee, memo, remark);
+                    sidechainAmounts, sidechainIndexs, memo, remark);
     }
 
     public IMainchainSubWallet(long proxy) {
@@ -31,5 +30,5 @@ public class IMainchainSubWallet extends ISubWallet {
     }
 
     private native String nativeCreateDepositTransaction(long proxy, String fromAddress, String toAddress, long amount
-            , String sidechainAccounts, String sidechainAmounts, String sidechainIndexs, long fee, String memo, String remark);
+            , String sidechainAccounts, String sidechainAmounts, String sidechainIndexs, String memo, String remark);
 }

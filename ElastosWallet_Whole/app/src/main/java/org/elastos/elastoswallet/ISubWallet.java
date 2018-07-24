@@ -79,13 +79,12 @@ public class ISubWallet {
      * @param fromAddress specify which address we want to spend, or just input empty string to let wallet choose UTXOs automatically.
      * @param toAddress specify which address we want to send.
      * @param amount specify amount we want to send.
-     * @param fee [Obsoleted] specify fee for miners.
      * @param memo input memo attribute for describing.
      * @param remark is used to record message of local wallet.
      * @return If success return the content of transaction in json format.
      */
-    public String CreateTransaction(String fromAddress, String toAddress, long amount, long fee, String memo, String remark) throws WalletException {
-        return nativeCreateTransaction(mSubProxy, fromAddress, toAddress, amount, fee, memo, remark);
+    public String CreateTransaction(String fromAddress, String toAddress, long amount, String memo, String remark) throws WalletException {
+        return nativeCreateTransaction(mSubProxy, fromAddress, toAddress, amount, memo, remark);
     }
 
     /**
@@ -104,12 +103,11 @@ public class ISubWallet {
      * @param fromAddress specify which address we want to spend, or just input empty string to let wallet choose UTXOs automatically.
      * @param toAddress specify which address we want to send.
      * @param amount specify amount we want to send.
-     * @param fee [Obsoleted] specify fee for miners.
      * @param memo input memo attribute for describing.
      * @return If success return the content of transaction in json format.
      */
-    public String CreateMultiSignTransaction(String fromAddress, String toAddress, long amount, long fee, String memo) throws WalletException {
-        return nativeCreateMultiSignTransaction(mSubProxy, fromAddress, toAddress, amount, fee, memo);
+    public String CreateMultiSignTransaction(String fromAddress, String toAddress, long amount, String memo) throws WalletException {
+        return nativeCreateMultiSignTransaction(mSubProxy, fromAddress, toAddress, amount, memo);
     }
 
     /**
@@ -181,8 +179,8 @@ public class ISubWallet {
     private native long nativeGetBalanceWithAddress(long subProxy, String address);
     private native void nativeAddCallback(long subProxy, ISubWalletCallback subCallback);
     private native void nativeRemoveCallback(long subProxy, ISubWalletCallback subCallback);
-    private native String nativeCreateTransaction(long subProxy, String fromAddress, String toAddress, long amount, long fee, String memo, String remark);
-    private native String nativeCreateMultiSignTransaction(long subProxy, String fromAddress, String toAddress, long amount, long fee, String memo);
+    private native String nativeCreateTransaction(long subProxy, String fromAddress, String toAddress, long amount, String memo, String remark);
+    private native String nativeCreateMultiSignTransaction(long subProxy, String fromAddress, String toAddress, long amount, String memo);
     private native String nativeCreateMultiSignAddress(long subProxy, String multiPublicKeyJson, int totalSignNum, int requiredSignNum);
     private native String nativeSendRawTransaction(long subProxy, String transactionJson, long fee, String payPassword);
     private native String nativeGetAllTransaction(long subProxy, int start, int count, String addressOrTxId);

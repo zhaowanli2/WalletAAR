@@ -18,7 +18,7 @@ using namespace Elastos;
 static const _ELASTOS ClassID ECLSID_CMasterWalletManager = {
     {0xEF8E2352,0x058C,0xCF45,{0x40,0x00,0x4A,0x79,0xC3,0x82,0x20,0x3E}},
     (char *)c_pElastos_WalletUunm,
-    0x033af837 };
+    0x95c7b3f9 };
 #endif // __CLSID_CMasterWalletManager_DEFINED__
 
 #ifndef __ECLSID_CMasterWalletManagerClassObject_DEFINED__
@@ -26,13 +26,13 @@ static const _ELASTOS ClassID ECLSID_CMasterWalletManager = {
 static const _ELASTOS ClassID ECLSID_CMasterWalletManagerClassObject = {
     {0x2EFE2E51,0x058C,0xCF45,{0x40,0x00,0x4A,0x79,0xC3,0x82,0x20,0x3E}},
     (char *)c_pElastos_WalletUunm,
-    0x033af837 };
+    0x95c7b3f9 };
 #endif // __CLSID_CMasterWalletManagerClassObject_DEFINED__
 
 #ifndef __EIID_ISubWalletListener_DEFINED__
 #define __EIID_ISubWalletListener_DEFINED__
 static const _ELASTOS InterfaceID EIID_ISubWalletListener = \
-    {0x99922D18,0x8712,0x2097,{0xF9,0xBE,0xE8,0x5D,0xB1,0xF6,0x8D,0xC6}};
+    {0x1B2B6710,0x8712,0x2097,{0xF9,0xBE,0xE8,0x5D,0xB1,0xF6,0x8D,0xC6}};
 #endif // __IID_ISubWalletListener_DEFINED__
 
 #ifndef __EIID_ISubWallet_DEFINED__
@@ -96,7 +96,7 @@ interface ICMasterWalletManagerClassObject;
 ELAPI _Impl_AcquireCallbackHandler(PInterface pServerObj, _ELASTOS REIID iid, PInterface *ppHandler);
 ELAPI _Impl_CheckClsId(PInterface pServerObj, const _ELASTOS ClassID* pClassid, PInterface *ppServerObj);
 
-CAR_INTERFACE("99922D18-8712-2097-F9BE-E85DB1F68DC6")
+CAR_INTERFACE("1B2B6710-8712-2097-F9BE-E85DB1F68DC6")
 ISubWalletListener : public IInterface
 {
     virtual CARAPI_(PInterface) Probe(
@@ -124,6 +124,14 @@ ISubWalletListener : public IInterface
         /* [in] */ const _ELASTOS String& status,
         /* [in] */ const _ELASTOS String& desc,
         /* [in] */ _ELASTOS Int32 confirms) = 0;
+
+    virtual CARAPI OnBlockSyncStarted() = 0;
+
+    virtual CARAPI OnBlockHeightIncreased(
+        /* [in] */ _ELASTOS Int32 currentBlockHeight,
+        /* [in] */ _ELASTOS Double progress) = 0;
+
+    virtual CARAPI OnBlockSyncStopped() = 0;
 
 };
 CAR_INTERFACE("AE26FD03-8712-2097-F9BE-E8FD43E8CDAC")
@@ -180,7 +188,6 @@ ISubWallet : public IInterface
         /* [in] */ const _ELASTOS String& fromAddress,
         /* [in] */ const _ELASTOS String& toAddress,
         /* [in] */ _ELASTOS Int64 amount,
-        /* [in] */ _ELASTOS Int64 fee,
         /* [in] */ const _ELASTOS String& memo,
         /* [in] */ const _ELASTOS String& remark,
         /* [out] */ _ELASTOS String * txidJson) = 0;
@@ -195,7 +202,6 @@ ISubWallet : public IInterface
         /* [in] */ const _ELASTOS String& fromAddress,
         /* [in] */ const _ELASTOS String& toAddress,
         /* [in] */ _ELASTOS Int64 amount,
-        /* [in] */ _ELASTOS Int64 fee,
         /* [in] */ const _ELASTOS String& memo,
         /* [out] */ _ELASTOS String * transactionJson) = 0;
 
@@ -258,7 +264,6 @@ IMainchainSubWallet : public IInterface
         /* [in] */ const _ELASTOS String& sidechainAccountsJson,
         /* [in] */ const _ELASTOS String& sidechainAmountsJson,
         /* [in] */ const _ELASTOS String& sidechainIndexsJson,
-        /* [in] */ _ELASTOS Int64 fee,
         /* [in] */ const _ELASTOS String& memo,
         /* [in] */ const _ELASTOS String& remark,
         /* [out] */ _ELASTOS String * txidJson) = 0;
@@ -294,7 +299,6 @@ ISidechainSubWallet : public IInterface
         /* [in] */ const _ELASTOS String& mainchainAccountsJson,
         /* [in] */ const _ELASTOS String& mainchainAmountsJson,
         /* [in] */ const _ELASTOS String& mainchainIndexsJson,
-        /* [in] */ _ELASTOS Int64 fee,
         /* [in] */ const _ELASTOS String& memo,
         /* [in] */ const _ELASTOS String& remark,
         /* [out] */ _ELASTOS String * txidJson) = 0;
@@ -328,11 +332,8 @@ IIdChainSubWallet : public IInterface
 
     virtual CARAPI CreateIdTransaction(
         /* [in] */ const _ELASTOS String& fromAddress,
-        /* [in] */ const _ELASTOS String& toAddress,
-        /* [in] */ _ELASTOS Int64 amount,
         /* [in] */ const _ELASTOS String& payloadJson,
         /* [in] */ const _ELASTOS String& programJson,
-        /* [in] */ _ELASTOS Int64 fee,
         /* [in] */ const _ELASTOS String& memo,
         /* [in] */ const _ELASTOS String& remark,
         /* [out] */ _ELASTOS String * result) = 0;
