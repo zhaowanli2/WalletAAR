@@ -24,7 +24,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 //        TestCheckDid();
-        TestWallet();
+//        TestWallet();
+        String tmp = DIDInspector.TestString();
+        Log.d(TAG, "tmp =============[" + tmp + "]");
     }
 
     private void TestDID(IMasterWallet masterWallet, String rootPath, String payPassword) {

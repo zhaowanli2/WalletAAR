@@ -83,15 +83,15 @@ public class MainActivity extends AppCompatActivity {
                 }
                 @Override
                 public void OnBlockSyncStarted() {
-                    //TOOD 确认数变动会触发该回调.
+                    //TOOD 区块同步时触发
                 }
                 @Override
                 public void OnBlockHeightIncreased(int currentBlockHeight, double progress) {
-                    //TOOD 确认数变动会触发该回调.
+                    //TOOD 同步过程中的回调
                 }
                 @Override
                 public void OnBlockSyncStopped() {
-                    //TOOD 确认数变动会触发该回调.
+                    //TOOD 同步结束
                 }
             });
 

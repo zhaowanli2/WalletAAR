@@ -17,4 +17,5 @@ target_link_libraries(didInspector
     Elastos.CoreLibrary
     Elastos.DIDInspector
     crypto
+    log
 )

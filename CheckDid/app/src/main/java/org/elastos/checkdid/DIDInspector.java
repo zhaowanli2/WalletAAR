@@ -19,6 +19,11 @@ public class DIDInspector {
         sDIDInspectorProxy = nativeInitDIDInspector();
     }
 
+    public static String TestString() {
+        return nativeTestString();
+    }
+    private static native String nativeTestString();
+
     private static native long nativeInitDIDInspector();
     private static native boolean nativeCheckDID(long proxy, String publicKey, String did);
     private static native boolean nativeCheckSign(long proxy, String publicKey, String message, String signature);
