@@ -41,7 +41,7 @@ static jboolean JNICALL nativeCheckSign(JNIEnv *env, jobject clazz, jlong proxy,
     const char* signature = env->GetStringUTFChars(jsignature, NULL);
 
     jboolean matched = Key::verifyByPublicKey(publicKey, message, signature);
-
+    LOGD("FUNC=[%s]====Line=[%d], publicKey=[%s], message=[%s], signature=[%s]", __FUNCTION__, __LINE__ , publicKey, message, signature);
     env->ReleaseStringUTFChars(jpublicKey, publicKey);
     env->ReleaseStringUTFChars(jmessage, message);
     env->ReleaseStringUTFChars(jsignature, signature);

@@ -36,7 +36,12 @@ public class MainActivity extends AppCompatActivity {
         //
         String publicKeyStr = did.GetPublicKey();
         boolean matched = DIDInspector.CheckDID(publicKeyStr, didName);
-        Log.d(TAG, "TestDID==========================matched=["+matched+"]");
+        Log.d(TAG, "TestDID=============1=============matched=["+matched+"]");
+
+        String message = "i am a message.";
+        String signature = did.Sign(message, payPassword);
+        matched = DIDInspector.CheckSign(publicKeyStr, message, signature);
+        Log.d(TAG, "TestDID==============2============matched=["+matched+"]");
     }
 
     private void TestWallet() {
